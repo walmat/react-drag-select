@@ -1,14 +1,15 @@
 'use strict';
 
 var _ = require('lodash');
+var PropTypes = require('prop-types');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
 var Selection = React.createClass({
 
   propTypes: {
-    enabled: React.PropTypes.bool,
-    onSelectionChange: React.PropTypes.func
+    enabled: PropTypes.bool,
+    onSelectionChange: PropTypes.func
   },
 
   /**

@@ -32,7 +32,8 @@
   },
   "homepage": "https://github.com/pablofierro/react-drag-select",
   "dependencies": {
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
