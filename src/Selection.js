@@ -1,16 +1,11 @@
 'use strict';
 
 var _ = require('lodash');
-var PropTypes = require('prop-types');
 var React = require('react');
 var ReactDOM = require('react-dom');
+var createReactClass = require('create-react-class');
 
-var Selection = React.createClass({
-
-  propTypes: {
-    enabled: PropTypes.bool,
-    onSelectionChange: PropTypes.func
-  },
+var Selection = createReactClass({
 
   /**
    * Component default props
@@ -88,8 +83,8 @@ var Selection = React.createClass({
     var scrollY = Math.abs(parentNode.getClientRects()[0].top - this.cumulativeOffset(parentNode).top)
     var scrollX = Math.abs(parentNode.getClientRects()[0].left - this.cumulativeOffset(parentNode).left)
     nextState.startPoint = {
-      x: e.clientX - this.cumulativeOffset(parentNode).left + scrollX,
-      y: e.clientY - this.cumulativeOffset(parentNode).top + scrollY
+      x: e.clientX - this.cumulativeOffset(parentNode).top + scrollX,
+      y: e.clientY - this.cumulativeOffset(parentNode).left + scrollY
     };
     this.setState(nextState);
     window.document.addEventListener('mousemove', this._onMouseMove);
@@ -122,8 +117,8 @@ var Selection = React.createClass({
       var scrollY = Math.abs(parentNode.getClientRects()[0].top - this.cumulativeOffset(parentNode).top)
       var scrollX = Math.abs(parentNode.getClientRects()[0].left - this.cumulativeOffset(parentNode).left)
       var endPoint = {
-        x: e.clientX - this.cumulativeOffset(parentNode).left + scrollX,
-        y: e.clientY - this.cumulativeOffset(parentNode).top + scrollY
+        x: e.clientX - this.cumulativeOffset(parentNode).top + scrollX,
+        y: e.clientY - this.cumulativeOffset(parentNode).left + scrollY
       };
       this.setState({
         endPoint: endPoint,
@@ -160,17 +155,21 @@ var Selection = React.createClass({
         selectionParent: _this,
         isSelected: isSelected
       });
-      return React.DOM.div({
-        style: _this.props.itemStyle,
-        className: 'select-box ' + (isSelected ? 'selected' : ''),
-        onClickCapture: function(e) {
-          if((e.ctrlKey || e.altKey || e.shiftKey) && _this.props.enabled) {
-            e.preventDefault();
-            e.stopPropagation();
-            _this.selectItem(tmpKey, !_.has(_this.selectedChildren, tmpKey));
-          }
-        }
-      }, tmpChild);
+      return (
+        <div
+          style={_this.props.itemStyle}
+          className={'select-box ' + (isSelected ? 'selected' : '')}
+          onClickCapture={(e) => {
+            if ((e.ctrlKey || e.altKey || e.shiftKey) && _this.props.enabled) {
+              e.preventDefault();
+              e.stopPropagation();
+              _this.selectItem(tmpKey, !_.has(_this.selectedChildren, tmpKey));
+            }
+          }}
+        >
+          {tmpChild}
+        </div>
+      )
     });
   },
 
